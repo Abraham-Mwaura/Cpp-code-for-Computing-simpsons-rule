@@ -1,0 +1,37 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+float f(float x )
+{
+    return 16/(16+x*x);
+
+}
+
+float trapezoid (float a, float b, float n)
+{
+    float h = (b-a)/n;
+    float s=0;
+    for(int i=0; i<n-1; i++) {
+         s+=f(a+h*(i+1));
+     }
+    return h/2*(f(a)+(2*s)+f(b));
+
+}
+
+int main()
+{
+    float a=0, b=4;
+    float rom[5][5]={0};
+    for(int i=0;i<=5; i++){
+        rom[i][0]=trapezoid(a,b,pow(2,i));
+    }
+    
+    for(int i=0;i<=5; i++){
+        cout << rom[i][0] << endl;
+    }
+    
+    // cout << trapezoid(a,b,n) << endl;
+
+    return 0;
+}
