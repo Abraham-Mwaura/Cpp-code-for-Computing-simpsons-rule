@@ -1,11 +1,11 @@
 #include <iostream>
 #include <cmath>
 using namespace std;
+float a=0, b=4;
 
-float f(float x )
+float function (float x )
 {
     return 16/(16+x*x);
-
 }
 
 float trapezoid (float a, float b, float n)
@@ -13,25 +13,33 @@ float trapezoid (float a, float b, float n)
     float h = (b-a)/n;
     float s=0;
     for(int i=0; i<n-1; i++) {
-         s+=f(a+h*(i+1));
+         s+=function(a+h*(i+1));
      }
-    return h/2*(f(a)+(2*s)+f(b));
-
+    return h/2*(function(a)+(2*s)+function(b));
 }
 
 int main()
 {
-    float a=0, b=4;
     float rom[5][5]={0};
     for(int i=0;i<=5; i++){
-        rom[i][0]=trapezoid(a,b,pow(2,i));
+        rom[0][i]=trapezoid(a,b,pow(2,i));
     }
     
-    for(int i=0;i<=5; i++){
-        cout << rom[i][0] << endl;
+    int x =1;
+    for(int j=2; j<=6;j++){
+        for(int i=1; i<=x;i++){
+          rom[i][j]=((pow(4,i)*rom[i-1][j])-(rom[i-1][j-1]))/(pow(4,i)-1);
+        }
+        x++;
     }
     
-    // cout << trapezoid(a,b,n) << endl;
-
+    int y=0;
+    for(int j=1; j<=5;j++){
+        for(int i=0; i<=y; i++){
+          cout<<rom[i][j]<<"  ";
+        }
+        y++;
+        cout<<endl;
+    }
     return 0;
 }
